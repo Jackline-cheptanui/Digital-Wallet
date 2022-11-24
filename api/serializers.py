@@ -8,16 +8,18 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model=Customer
         fields=("first_name","last_name","age","email","address")
+
         
 class WalletSerializer(serializers.ModelSerializer):
     class Meta:
         model=Walletb
         fields=("customer","currency_supported","wallet_id")
 
+
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=Account
-        fields=("account_number","customer","account_balance","pin","loan_balance")
+        fields=("account_number","customer","account_balance","pin")
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,16 +35,17 @@ class LoanSerializer(serializers.ModelSerializer):
     class Meta:
         model= Loan 
         fields=("loan_amount","loan_type","interest_rate","date")
-        
-        # "loan_term","loan_Id","walletb")
 
 
 class ReceiptSerializer(serializers.ModelSerializer):
     class Meta:
         model=Receipt
         fields=("receipt_date","receipt_number","receipt_file","transaction")
+        
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model= Notifcation
-        fieds="__all__"     
+        fields=("message","date", "customer")
+
+        # fieds="__all__"     

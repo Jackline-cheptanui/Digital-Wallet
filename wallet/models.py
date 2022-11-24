@@ -17,11 +17,18 @@ class Customer(models.Model):
         ("Female","Female")
     )
     gender= models.CharField(max_length=10,choices=choice_g)
-    nationality=models.CharField(null=True,max_length=24)
+    nationality=(
+        ("Kenya","Kenya"),
+        ("Uganda","Uganda"),
+        ("Rwanda","Rwanda"),
+        ("Tanzania","Tanzania")
+    )
+    nationality= models.CharField(max_length=10,choices=nationality)
     profile_picture=models.ImageField(null=True,blank=True,upload_to="images/")
     age= models.PositiveBigIntegerField()
     def __str__(self):
          return str(self.first_name)
+
 
 class Account(models.Model):
     account_number= models.PositiveIntegerField()
@@ -30,7 +37,6 @@ class Account(models.Model):
     pin=models.PositiveSmallIntegerField()
     date_created=models.DateTimeField(default=datetime.now)
     loan_balance2=models.IntegerField(null=True)
-    # loan_balance=models.ForeignKey('Loan',on_delete=models.CASCADE,null=True,related_name='Loan')
     
     def __str__(self):
         return str(self.customer)
@@ -42,7 +48,7 @@ class Account(models.Model):
         else:
             self.account_balance += amount
             self.save()
-            message=f"You have deposited this {amount}, your new balance is {self.account_balance}"
+            message= f"You have deposited this {amount}, your new balance is {self.account_balance}"
             status=200
         return message, status
 
@@ -118,19 +124,11 @@ class Account(models.Model):
             status=200
         return message, status
 
-
-
-
-    
    
 class Walletb(models.Model):
     customer=models.OneToOneField(null=True,on_delete=models.CASCADE,to=Customer)
     currency_supported=models.CharField(max_length=27)
     wallet_id=models.IntegerField(null=True)
-
-
-    
-   
 
 class Transaction(models.Model):
     walletb=models.ForeignKey(null=True,on_delete=models.CASCADE,to=Walletb)
@@ -143,20 +141,13 @@ class Transaction(models.Model):
     def __str__(self):
         return str(self.walletb)
 
-
-    
-
-    
-  
- 
 class Card(models.Model):
     card_number=models.IntegerField()
     expiry_date=models.DateTimeField(default=datetime.now)
     card_type_choices=(
         ('Debit','debit'),
-        ('credit','credit')
-
-
+        ('credit','credit'),
+        ('cash','cash')
     )
     card=models.CharField(max_length=6,choices=card_type_choices,null=True)
     card_security_code=models.CharField(max_length=6)
@@ -181,6 +172,7 @@ class Notifcation(models.Model):
     )
     status=models.CharField(max_length=7,choices=state,null=True)
     customer=models.ForeignKey(on_delete=models.CASCADE,to=Customer)
+
 class Receipt(models.Model):
     receipt_date=models.DateTimeField(default=datetime.now)
     receipt_number=models.CharField(max_length=6)
@@ -193,14 +185,14 @@ class Loan(models.Model):
     loan_amount=models.BigIntegerField()
     loan_typ=(
         ('Faulu','Mshwari'),
-        ('Tala','fuliza')
+        ('Tala','fuliza'),
+        ('Equety', 'loan')
+       
     )
     loan_type=models.CharField(max_length=10,choices=loan_typ,null=True)
     interest_rate=models.SmallIntegerField()
     date=models.DateTimeField(default=datetime.now)
-    # loan_Id=models.CharField(max_length=30)
     account=models.ForeignKey(null=True,on_delete=models.CASCADE,to=Account,related_name='AccountA')
-    # loan_term=models.IntegerField()
 
     
 class Reward(models.Model):
@@ -221,4 +213,3 @@ class Reward(models.Model):
         
 
 
-# Create your models here.

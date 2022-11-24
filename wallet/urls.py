@@ -3,14 +3,10 @@ from .views import SearchCustomer, account_profile, card_profile, edit_account,c
 
 urlpatterns=[
     #deposit api
-
-
     path("",home_page,name='home'),
-    # path("customers/",list_customers,name='all_customers'),
     path("customers_get/",SearchCustomer.as_view(),name='all_customers'),
     path("customers/<int:id>/",customer_profile,name="customerProfile"),
     path("customers/edit/<int:id>/",edit_customer,name="edit_customer"),
-    # path('customers/<int:id>/',CustomerProfile.as_view(),name="edit_customer"),
     path("registercust/",register_customer,name='registration'),
 
 
@@ -50,16 +46,17 @@ urlpatterns=[
 
     path('loan/',register_loan,name='loan'),
     path('loans/',list_loan,name='all_loans'),
-
     path('receipt/',register_receipt,name='receipt'),
     path('receipts/',list_receipts,name='all_receipts'),
     path("receipts/<int:id>/",receipt_profile,name="receiptProfile"),
     path("receipts/edit/<int:id>/",edit_receipts,name="edit_receipt"),
-
-
-
     path('reward/',register_reward,name='reward'),
     path('rewards/',list_reward,name='all_rewards'),
+
+
+
+
+
 
 
     

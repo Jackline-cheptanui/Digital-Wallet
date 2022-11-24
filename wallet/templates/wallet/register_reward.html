@@ -11,8 +11,6 @@
 <body>
     <h1>Your Reward</h1>
     <div class="card">
-
-   
     <form method="POST">
         {%csrf_token%}
         <label for="Customer" style="width:32rem; margin:5% 0% 0% 9%;color: black;">Date
@@ -26,10 +24,7 @@
         <label for="Customer" style="width:32rem; margin:5% 0% 0% 9%;color: black;">Reward Points
             {{reward.points}}
         </label>
-       
-
-
-     
+        
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

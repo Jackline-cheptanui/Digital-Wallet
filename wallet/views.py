@@ -6,13 +6,7 @@ from django.shortcuts import redirect
 from django.views.generic.base import View
 from rest_framework import views
 from rest_framework.response import Response
-# form django.core.exceptions import ObjectDoesNotExist
 
-
-
-
-
-# Create your views here
 
 def home_page(request):
     return render(request,"wallet/index.html")
@@ -29,10 +23,12 @@ def register_customer(request):
     return render(request,"wallet/register_customer.html",
         {"formi":form
     })
+    
 
 def customer_profile(request,id):
    customers=Customer.objects.get(id=id)
    return render(request,"wallet/customer_profile.html",{"customers":customers })
+
 def edit_customer(request,id):
    customer=Customer.objects.get(id=id)
    if request.method =='POST':
@@ -82,6 +78,7 @@ def list_accounts(request):
 def account_profile(request,id):
     account=Account.objects.get(id=id)
     return render(request,"wallet/account_profile.html",{"accounts":account})
+
 def edit_account(request,id):
     account=Account.objects.get(id=id)
     if request.method == "POST":
@@ -106,6 +103,7 @@ def register_wallet(request):
 def wallet_profile(request,id):
     wallet=Walletb.objects.get(id=id)
     return render(request,"wallet/account_profile.html",{"wallets":wallet})
+
 def edit_wallet(request,id):
     wallet=Walletb.objects.get(id=id)
     if request.method=="POST":
@@ -116,7 +114,6 @@ def edit_wallet(request,id):
     else:
         form=WalletRegistrationForm(instance=wallet)
         return render(request,"wallet/edit_wallet.html",{"forms":form})
-
 
 def list_wallet(request):
     wallet=Walletb.objects.all()
@@ -146,9 +143,12 @@ def register_card(request):
     else:
         card_form=CardRegistrationForm()
     return render(request,"wallet/card_register.html",{"card":card_form})
+
 def transaction_profile(request,id):
     transaction=Transaction.objects.get(id=id)
     return render(request,"wallet/transaction_profile.html",{"transactions":transaction})
+
+
 def edit_transaction(request,id):
     transaction=Transaction.objects.get(id=id)
     if request.method=="POST":
@@ -159,13 +159,12 @@ def edit_transaction(request,id):
     else:
         form=RegisterTransactionForm(instance=transaction)
         return render(request,"wallet/edit_transaction.html",{"forms":form})
-             
-
 
 
 def list_card(request):
     card=Card.objects.all()
     return render(request,"wallet/list_card.html",{"cards":card})
+
 def card_profile(request,id):
     card=Card.objects.get(id=id)
     return render(request,"wallet/card_profile.html",{"cards":card})
@@ -179,9 +178,7 @@ def edit_card(request,id):
             return redirect("cardProfile",id=card.id)
     else:
         return render(request,"wallet/edit_card.html",{"forms":form})
-
-
-    
+        
 
 def register_thirdparty(request):
     if request.method=="POST":
@@ -258,6 +255,7 @@ def receipt_profile(request,id):
      receipt=Receipt.objects.get(id=id)
      return render(request,"wallet/receipt_profile.html",{"receipts":receipt})
 
+     
 def edit_receipts(request,id):
      receipt=Receipt.objects.get(id=id)
      if request.method=="POST":
@@ -270,22 +268,6 @@ def edit_receipts(request,id):
         return render(request,"wallet/edit_receipt.html",{"forms":form})
 
 
-# class CustomerProfile(View):
-#     model = Customer
-#     template_name = 'wallet/customer_profile.html'
-
-#     def get(self,request,id):
-#         customers=Customer.objects.get(id=id)
-#         customer_found=request.GET.get('customer_found',None)     #request takes form as customer_found 
-#         if customer_found:
-#             form=CustomerRegisterationForm(request.POST,instance=customers)    #filter from database and assign it tothe request 
-#             context={'Customers':form}
-#             if form.is_valid():
-#                 form.save()
-
-#                 return redirect("customerProfile",id=customers.id)#return result
-#         context={'Customers':customers}
-#         return render(request, self.template_name,context)      
 
                            
     

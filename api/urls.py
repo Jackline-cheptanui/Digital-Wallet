@@ -4,6 +4,7 @@ from rest_framework import routers
 from wallet.models import Card, Customer, Notifcation, Receipt, Transaction, Walletb,Account,Loan
 from .views import AccountBuyAirtimeView, AccountLoanRepaymentView, AccountLoanRequestView, AccountViewSet, AccountWithdrawalView, CardViewSet, CustomerViewSet, ReceiptViewSet, TransactionViewSet, WalletViewSet,LoanViewSet,NotificationViewSet,AccountDepositView,AccountTransferView
 
+
 router=routers.DefaultRouter()  #fetch resource dynamically
 router.register(r'customers',CustomerViewSet,basename=Customer)
 router.register(r'wallet',WalletViewSet,basename=Walletb)

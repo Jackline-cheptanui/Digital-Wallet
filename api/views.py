@@ -10,21 +10,23 @@ from urllib import response
 from django.shortcuts import render
 
 
-
-
 from wallet.models import Account, Customer, Notifcation, Receipt, Transaction, Walletb,Card,Loan
 from .serializers import AccountSerializer, CardSerializer, CustomerSerializer, LoanSerializer, ReceiptSerializer, TransactionSerializer, WalletSerializer,NotificationSerializer
 
 # form django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import ObjectDoesNotExist
 
+
+
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset=Customer.objects.all()  #request info
     serializer_class=CustomerSerializer   #type of Serializer
 
+
 class WalletViewSet(viewsets.ModelViewSet):
     queryset=Walletb.objects.all()
     serializer_class=WalletSerializer
+
 
 class AccountViewSet(viewsets.ModelViewSet):  #class based view working with crud operations 
     queryset=Account.objects.all().order_by("customer")
@@ -33,14 +35,18 @@ class AccountViewSet(viewsets.ModelViewSet):  #class based view working with cru
 class CardViewSet(viewsets.ModelViewSet):
     queryset=Card.objects.all()
     serializer_class=CardSerializer
+    
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset=Transaction.objects.all()
     serializer_class=TransactionSerializer
 
+
+
 class LoanViewSet(viewsets.ModelViewSet):
     queryset=Loan.objects.all()
     serializer_class=LoanSerializer
+    
 
 class ReceiptViewSet(viewsets.ModelViewSet):
     queryset=Receipt.objects.all()
@@ -63,9 +69,7 @@ class AccountDepositView(views.APIView):
             return Response("Account Not Found", status=404)
         message, status = account.deposit(amount) 
         return Response (message,status=status)
-    
-
-
+        
     def get(self,request,pk,format=None):
         account = Account.objects.get(pk=pk)   #create for single object view
         if request.method == 'GET':             #specified request to be get method 
@@ -95,7 +99,7 @@ class AccountTransferView(views.APIView):
         account_id=request.data["destination"]   
         amount=request.data["amount"]  #to handle json data coming
         # destination_account=request.data["destination"]
-        
+
 
         try:
             account=Account.objects.get(id=account_id)    #get destination account
@@ -103,6 +107,7 @@ class AccountTransferView(views.APIView):
             return Response("Account Not Found", status=404)
         message, status = account_1.transfer(account,amount)    #transfer to destination
         return Response (message,status=status)
+
 class AccountLoanRequestView(views.APIView):
     def post(self,request,format=None):
         account_id=request.data["account_id"]
@@ -125,6 +130,8 @@ class AccountLoanRepaymentView(views.APIView):
             return Response("Account Not Found", status=404)
         message, status = account.loan_repayment(amount) 
         return Response (message,status=status)
+
+
 class AccountBuyAirtimeView(views.APIView):
     def post(self,request,format=None):
         account_id=request.data["account_id"]

@@ -85,17 +85,16 @@ WSGI_APPLICATION = 'digitalwallet.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES={
-    'default':{
-        'ENGINE':"django.db.backends.postgresql",
-        "NAME":"myproject",
-        "USER":"myprojectuser",
-        "PASSWORD":"password",
-        "HOST":"localhost",
-        "PORT":5432,
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'development',
+        'USER': 'myproject',
+        'PASSWORD': 'software',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
